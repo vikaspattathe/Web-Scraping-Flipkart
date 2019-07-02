@@ -27,9 +27,12 @@ for  container in containers:
     
     #for getting price
     price_container=container.findAll("div",{"class" : "_1vC4OE _2rQ-NK"})
-    price = price_container[0].text.replace("₹","Rs ")
-    price=price.replace(",","")                                 #replacing comas cause in csv coma seperates different values
-    print( price )
+    try:
+        price = price_container[0].text.replace("₹","Rs ")
+        price=price.replace(",","")                                 #replacing comas cause in csv coma seperates different values
+        print( price )
+    except (IndexError, ValueError):
+        pass
 
     #for getting rating
     rating_container=container.findAll("div",{"class" : "hGSR34"})
@@ -38,7 +41,7 @@ for  container in containers:
         rating=rating.replace(",","")                           #replacing comas cause in csv coma seperates different values
         print( rating,"\n" )
     except (IndexError, ValueError):
-        print("No rating given \n")
+        pass
          
     f.write(product_name + "," + price + "," + rating + "\n")   #writing to file
 
